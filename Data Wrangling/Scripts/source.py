@@ -10,7 +10,7 @@ os.chdir(cwd)
 #=============================================================================#
 # Read in data:
 #=============================================================================#
-import clean_functions as cf
+import cf_module as cf
 
 # Read in file names:
 names = ["Marks", "Qualifications", "Students"]
