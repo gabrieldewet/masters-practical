@@ -28,3 +28,13 @@ Threshold | Students | Modules
 150 | 1114 | 82
 200 | 1114 | 57
 300 | 1114 | 38
+
+### Target variables reference
+
+Target | Meaning
+----------|---------
+Graduated_x | Graduated BEng in minimum + x years 
+Graduated (T) | Transferred from BEng and then graduated
+Active (BEng) | Student still active in BEng as of 2017
+Active (Other) | Student still active in other programme as of 2017
+Discontinued | Self-explanatory
