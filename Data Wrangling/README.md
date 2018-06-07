@@ -20,7 +20,7 @@ Ready data for use in constructing BN's.
 
 Threshold | Students | Modules
 ----------|----------|--------
-- | 1114 | 1219
+0 | 1114 | 1219
 10 | 1114 | 340
 20 | 1114 | 231
 50 | 1114 | 157
