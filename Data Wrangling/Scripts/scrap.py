@@ -27,3 +27,9 @@ print(df)
 #    plot_df.loc[plot_df["Course Code"]>10,:].plot.bar()
 
 """
+
+#for y in range(2011,2016):
+#    plot_df = df_new.loc[df_new["Term"]==y,:]
+#    plot_df = pd.DataFrame(plot_df["Course Code"].value_counts(), index=None)
+#    print(len(plot_df.loc[plot_df["Course Code"]>30,:]))
+#    plot_df.loc[plot_df["Course Code"]>30,:].plot.bar()
