@@ -50,6 +50,6 @@ thresh = [10,20,50,100,150,200,300]
 
 for t in thresh:
     thresh_df = df.dropna(thresh=t, axis='columns').copy()
-#    print("{0} : {1}".format(t,(thresh_df.shape)))
+    print("{0} : {1}".format(t,(thresh_df.shape)))
     thresh_df.to_csv("../Out/CSV/{0}_modules.csv".format(t),
                      sep=";",index=False)
