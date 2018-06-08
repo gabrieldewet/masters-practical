@@ -14,6 +14,7 @@ Ready data for use in constructing BN's.
 	* Q1:Q4	-> Quarter1 to Quarter 4
 	* SE	-> Special Examination
 * In cases where a student repeats a module more than once, the max mark is used
+* Removed attendance modules
 
 ### Dimensions for final csv files
 * Based on thresholds of empty values per module (e.g. 340 modules had at least 10 non-empty values)

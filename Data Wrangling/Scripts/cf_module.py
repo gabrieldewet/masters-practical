@@ -155,7 +155,7 @@ def adjust_modules(df_in):
 
     # 6) Drop code 950 (Exemption exam passed) or discretize with rest
     # 7) Drop codes 995,984,977,985,976,989,967,981 (Unknown codes)
-    to_drop = [950, 995, 984, 977, 985, 976, 989, 967, 981]
+    to_drop = [950, 995, 984, 977, 985, 976, 989, 967, 981, 997, 996]
     df = df.loc[~df["Final Mark"].isin(to_drop),:]
 
     # 8) Remove postgrad modules (code>4)
@@ -173,9 +173,9 @@ def adjust_modules(df_in):
 
 # Adjusts final marks with speical codes
 def adj_codes(row):
-    if row["Final Mark"] in (997, 996):
-        return 0
-    elif row["Final Mark"] in (988, 987, 992):
+#    if row["Final Mark"] in (997, 996):
+#        return 0
+    if row["Final Mark"] in (988, 987, 992):
         return min([row["Semester Mark"],0])
     else:
         return row["Final Mark"]
