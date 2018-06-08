@@ -264,3 +264,15 @@ def target(df,mingrad):
     return out
 
 
+# Function for discretization
+def discretize(df):
+    # Bins: [(0), (0<30), (30<50), (50<60), (60<75), (75<100), (NA)]
+    bins = ["0", "0-29", "30-49", "50-59", "60-74", "75+", "NA"]
+    vals = [-1,0,29,49,59,74,101,1000]
+
+    for c in df.columns[1:-1]:
+        df[c] = pd.cut(df[c],vals,labels=bins)
+
+    return df
+
+

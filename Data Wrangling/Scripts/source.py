@@ -42,13 +42,27 @@ df.loc[:,"Target"] = df.apply(lambda row: \
 ## Write to csv
 
 # All modules
-df.fillna("NA").to_csv("../Out/CSV/all_modules.csv",sep=";",index=False)
+df.fillna(999).to_csv("../Out/CSV/all_modules.csv",sep=";",index=False)
+cf.discretize(df.fillna(999)).to_csv("../Out/CSV/all_modules_(dsc).csv",
+                         sep=";", index=False)
 
 # Various thresholds
 thresh = [10,20,50,100,150,200,300]
 
 for t in thresh:
-    thresh_df = df.dropna(thresh=t, axis='columns').copy().fillna("NA")
+    thresh_df = df.dropna(thresh=t, axis='columns').copy()
     print("\n{0} : {1}".format(t,(thresh_df.shape)))
-    thresh_df.to_csv("../Out/CSV/{0}_modules.csv".format(t),
+    thresh_df.fillna(999).to_csv("../Out/CSV/{0}_modules.csv".format(t),
                      sep=";",index=False)
+    cf.discretize(thresh_df.fillna(999))\
+                 .to_csv("../Out/CSV/{0}_modules_(dsc).csv"\
+                         .format(t), sep=";", index=False)
+
+
+
+
+
+
+
+
+

@@ -18,6 +18,8 @@ Ready data for use in constructing BN's.
 
 ### Dimensions for final csv files
 * Based on thresholds of empty values per module (e.g. 340 modules had at least 10 non-empty values)
+* Missing values in output are indicated with 999
+* Self discretized files see 999 as own category
 
 Threshold | Students | Modules
 ----------|----------|--------
