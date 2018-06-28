@@ -18,8 +18,8 @@ Ready data for use in constructing BN's.
 
 ### Dimensions for final csv files
 * Based on thresholds of empty values per module (e.g. 340 modules had at least 10 non-empty values)
-* Missing values in output are indicated with 999
-* Self discretized files see 999 as own category
+* Missing values in output are indicated with "NA"
+* Self discretized files see "NA" as own category
 
 Threshold | Students | Modules
 ----------|----------|--------
@@ -41,3 +41,7 @@ Graduated (T) | Transferred from BEng and then graduated
 Active (BEng) | Student still active in BEng as of 2017
 Active (Other) | Student still active in other programme as of 2017
 Discontinued | Self-explanatory
+
+* Important notes on different data sets:
+Another folder was added (NoDisc) that removes discontinued students. This was done because the reason for discontinued studies isn't necessarily apparent unless it is related to poor academic performance. 
+Since advising a student to discontinue their studies is not in the scope of interventions for this study, the modelling could rather be focussing on students that performed poorly yet still made it in the end.

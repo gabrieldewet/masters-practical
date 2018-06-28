@@ -36,7 +36,7 @@ def filters(df, pcode=False, startwith=False, contains=False, ncontains=False):
     return df, original_df
 
 
-# Functions to read student flatfiles:
+# Functions to read plan flatfiles:
 def read_plan(files, **kwargs):
     # Specify filters in dictionary format
 
@@ -97,7 +97,6 @@ def read_student(files, cohort, code_df, all_df):
                 (df["Number of Years"] == 1) &
                 (df["Term"] == cohort), "Student Number"]
 
-
     if len(sn)>0:
         df = df.loc[(df["Student Number"].isin(sn)) &
                       (df["Term"].astype(int) >= int(cohort))]
@@ -110,7 +109,7 @@ def read_student(files, cohort, code_df, all_df):
         return pd.DataFrame()
 
 
-# Function for reading csv's and returning pivited data
+# Function for reading csv's and returning pivoted data
 def read_marks(files, snumbers):
 
     df = pd.DataFrame()
@@ -137,7 +136,7 @@ def read_marks(files, snumbers):
 
 
 # Function to filter out unwanted modules and rename others
-def adjust_modules(df_in):
+def adjust_modules(df_in, yr):
     # Use this function inside of read_marks function to return final df
 
     # Keep these columns:
@@ -159,7 +158,7 @@ def adjust_modules(df_in):
     df = df.loc[~df["Final Mark"].isin(to_drop),:]
 
     # 8) Remove postgrad modules (code>4)
-    mapfunc = df["Course Code"].map(lambda x: int(str(x)[4]) < 4)
+    mapfunc = df["Course Code"].map(lambda x: int(str(x)[4]) < yr)
     df = df.loc[mapfunc,:]
 
     # 9) Rename mods with labels from Session Desc
@@ -267,12 +266,45 @@ def target(df,mingrad):
 # Function for discretization
 def discretize(df):
     # Bins: [(0), (0<30), (30<50), (50<60), (60<75), (75<100), (NA)]
-    bins = ["0", "0-29", "30-49", "50-59", "60-74", "75+", "999"]
+    bins = ["0", "0-29", "30-49", "50-59", "60-74", "75+", "NA"]
     vals = [-1,0,29,49,59,74,101,1000]
 
     for c in df.columns[1:-1]:
         df[c] = pd.cut(df[c],vals,labels=bins)
 
     return df
+
+def remove_disc(df):
+    sn = df.loc[df["Target"] == "Discontinued","Student Number"]
+
+    return df.loc[~df["Student Number"].isin(sn),:]
+
+
+def bin_target(df):
+
+    # Keep only undergrad instances (postgrad confuses things)
+    df = df.loc[((df["PlanDesc"].str.startswith("B")) |
+                (df["PlanDesc"].str.startswith("L"))) &
+                (~df["PlanDesc"].str.contains("Hons")),:]
+
+    length = len(df["Student Number"].unique())
+    i = 1
+    out = {}
+    for sn in df["Student Number"].unique():
+        prog = int(i/length*100)
+        pstr = "[" + "#"*prog + " "*(100-prog) + "] {}%".format(str(prog))
+        sys.stdout.write("\r{0}".format(pstr))
+        sys.stdout.flush()
+        temp = df.loc[df["Student Number"] == sn,:].reset_index(drop=True)
+
+        if "F" in temp["Quali. Status"].values:
+            target = "Graduated"
+
+        else:
+            target = "Not Graduated"
+        i += 1
+        out[sn] = target
+
+    return out
 
 
